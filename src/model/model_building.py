@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import pickle
-
+import os
 import yaml
 
 params = yaml.safe_load(open('params.yaml', 'r'))['model_building']
@@ -17,7 +17,14 @@ clf = GradientBoostingClassifier(n_estimators = params['n_estimators'] , learnin
 
 clf.fit(X_train,y_train)
 
-pickle.dump(clf,open('models/models.pkl', 'wb'))
+
+
+os.makedirs("model", exist_ok=True)
+
+
+with open("model/models.pkl", "wb") as f:
+    pickle.dump(clf, f)
+
 
 
 
